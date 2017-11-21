@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -19,60 +18,129 @@
 	</prerequisites>
 
 	<properties>
-		<!-- source and target version for the app -->
-		<maven.compiler.source>1.5</maven.compiler.source>
-		<maven.compiler.target>1.5</maven.compiler.target>
+		<rootUrl>https://github.com/Tholian/</rootUrl>
+		<repository.name>${project.artifactId}</repository.name>
 
-		<!-- configuration of animal sniffer to ensure correct API use -->
+		<!-- the lowest version will be 1.5, to enable legacy projects to include 
+			libs from tholian -->
+		<java.version>1.5</java.version>
+		<project.java.source.level>${java.version}</project.java.source.level>
+		<project.java.target.level>${java.version}</project.java.target.level>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<!-- This must hold the artifactId of the plugin to test java api against, 
+			to ensure that no newer API is accidentially called. -->
+		<!-- available artifactId can be found here http://search.maven.org/#search%7Cga%7C1%7Corg.codehaus.mojo.signature -->
 		<org.codehaus.mojo.signature.artifactId>java15</org.codehaus.mojo.signature.artifactId>
+		<!-- if animal sniffer should be skipped completely -->
+		<animal.sniffer.skip>false</animal.sniffer.skip>
 
-		<!-- setting the doclint param for javadoc generation to none, 'group', 
-		all, see http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html -->
-		<javadoc.doclint.arg>-Xdoclint:all</javadoc.doclint.arg>
-
-		<!-- default encodings -->
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
 		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
 
 		<maven.dependency.plugin.failOnWarning>true</maven.dependency.plugin.failOnWarning>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<default-upgrade-phase>validate</default-upgrade-phase>
+		<!-- setting the doclint param for javadoc generation to none, 'group', 
+			all, see http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html -->
+		<javadoc.doclint.arg>-Xdoclint:all</javadoc.doclint.arg>
+		<documentation.dir>src/doc</documentation.dir>
+
+		<!-- source file directories to take into account while performing analysis -->
+		<sonar.sources>${project.build.sourceDirectory}</sonar.sources>
 
 		<enforcer.skip.enforce-bytecode-version>${enforcer.skip}</enforcer.skip.enforce-bytecode-version>
 
-		<!-- plugin configuration -->
-		<org.owasp.dependency-check-maven.version>2.1.0</org.owasp.dependency-check-maven.version>
+
+		<!-- plugin versions used -->
+		<com.mycila_license-maven-plugin.version>3.0</com.mycila_license-maven-plugin.version>
+
+		<maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
+		<maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
+		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+		<maven-ear-plugin.version>2.10.1</maven-ear-plugin.version>
+		<maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+		<maven-site-plugin.version>3.6</maven-site-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+		<maven-war-plugin.version>3.2.0</maven-war-plugin.version>
+
+		<org.codehaus.mojo_build-helper-maven-plugin.version>3.0.0</org.codehaus.mojo_build-helper-maven-plugin.version>
+		<org.codehaus.mojo_clirr-maven-plugin.version>2.8</org.codehaus.mojo_clirr-maven-plugin.version>
+		<org.codehaus.mojo_sonar-maven-plugin.version>3.3.0.603</org.codehaus.mojo_sonar-maven-plugin.version>
+		<org.codehaus.mojo_versions-maven-plugin.version>2.5</org.codehaus.mojo_versions-maven-plugin.version>
+
+		<org.jacoco_jacoco-maven-plugin.version>0.7.9</org.jacoco_jacoco-maven-plugin.version>
+		<org.owasp_dependency-check-maven.version>3.0.2</org.owasp_dependency-check-maven.version>
+
+		<!-- dependency versions used -->
+		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.0.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
+		<io.sentry.version>1.6.3</io.sentry.version>
+		<io.sentry_sentry.version>${io.sentry.version}</io.sentry_sentry.version>
+		<io.sentry_sentry-logback.version>${io.sentry.version}</io.sentry_sentry-logback.version>
+		<org.slf4j.version>1.7.25</org.slf4j.version>
+
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.sentry</groupId>
+				<artifactId>sentry</artifactId>
+				<version>${io.sentry_sentry.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.sentry</groupId>
+				<artifactId>sentry-logback</artifactId>
+				<version>${io.sentry_sentry-logback.version}</version>
+			</dependency>
+
+			<!-- is packed inside io.sentry, but will be used normally as direct dependency 
+				and not just transitive -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>2.5.2</version>
+					<version>${maven-install-plugin.version}</version>
 				</plugin>
-
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
+					<version>${maven-enforcer-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
+					<version>${maven-deploy-plugin.version}</version>
 				</plugin>
-
 				<plugin>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.9</version>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>${maven-project-info-reports-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.10.4</version>
+					<version>${maven-javadoc-plugin.version}</version>
 					<configuration>
 						<additionalparam>${javadoc.opts}</additionalparam>
 					</configuration>
@@ -80,26 +148,23 @@
 
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>${maven-source-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>${maven-release-plugin.version}</version>
 					<configuration>
 						<tagNameFormat>@{project.version}</tagNameFormat>
 					</configuration>
 				</plugin>
-
 				<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.9</version>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${org.jacoco_jacoco-maven-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
+					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<source>${project.java.source.level}</source>
 						<target>${project.java.target.level}</target>
@@ -109,55 +174,127 @@
 						</compilerArguments>
 					</configuration>
 				</plugin>
-				
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-webdav-jackrabbit</artifactId>
+							<version>${org.apache.maven.wagon_wagon-webdav-jackrabbit.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
-					<version>${sonar.maven.plugin.version}</version>
+					<version>${org.codehaus.mojo_sonar-maven-plugin.version}</version>
 				</plugin>
-				
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>${org.codehaus.mojo_build-helper-maven-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.20</version>
+					<version>${maven-surefire-plugin.version}</version>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>${maven-dependency-plugin.version}</version>
+					<!-- could be used to upgrade JAXB and JAXWS in Java 1.6 by overriding 
+						the phase: "<phase>${default-upgrade-phase}</phase>" -->
+					<executions>
+						<execution>
+							<id>upgrade-jaxb</id>
+							<phase>none</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${endorsed.dir}</outputDirectory>
+								<silent>true</silent>
+								<!-- need JAXB API and JAX-WS API in an endorsed dir -->
+								<artifactItems>
+									<artifactItem>
+										<groupId>javax.xml.bind</groupId>
+										<artifactId>jaxb-api</artifactId>
+										<version>${jaxb-api.version}</version>
+										<type>jar</type>
+									</artifactItem>
+								</artifactItems>
+							</configuration>
+						</execution>
+						<execution>
+							<id>upgrade-jaxws</id>
+							<phase>none</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${endorsed.dir}</outputDirectory>
+								<silent>true</silent>
+								<artifactItems>
+									<artifactItem>
+										<groupId>javax.xml.ws</groupId>
+										<artifactId>jaxws-api</artifactId>
+										<version>${jaxws-api.version}</version>
+										<type>jar</type>
+									</artifactItem>
+								</artifactItems>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
-
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
+					<version>${maven-jar-plugin.version}</version>
 				</plugin>
-				
+				<plugin>
+					<artifactId>maven-ear-plugin</artifactId>
+					<!-- In Verbindung mit "skinnyWars" (https://maven.apache.org/plugins/maven-war-plugin/examples/skinny-wars.html) 
+						sollte unbedingt diese Version genommen werden, weil es einen Bug gibt: https://mail-archives.apache.org/mod_mbox/maven-users/201411.mbox/%3C54762BD3.7090405@gmx.de%3E 
+						Es werden nämlich SNAPSHOT-Artefakte doppelt ins EAR gelegt. Einmal ins EAR 
+						und einmal in das WAR (unter WEB-INF/lib), welches im EAR liegt... -->
+					<version>${maven-ear-plugin.version}</version>
+				</plugin>
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>${maven-assembly-plugin.version}</version>
 				</plugin>
-
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.8</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>${maven-clean-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
 				</plugin>
 
 				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<!-- Diese Version wird bewusst wegen: http://stackoverflow.com/a/28864641 gesetzt. -->
-					<version>3.0.1</version>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>animal-sniffer-maven-plugin</artifactId>
+					<version>1.16</version>
 				</plugin>
 
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${com.mycila_license-maven-plugin.version}</version>
+				</plugin>
 
 				<plugin>
 					<groupId>org.owasp</groupId>
 					<artifactId>dependency-check-maven</artifactId>
-					<version>${org.owasp.dependency-check-maven.version}</version>
+					<version>${org.owasp_dependency-check-maven.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -167,180 +304,360 @@
 					</executions>
 				</plugin>
 
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${org.codehaus.mojo_versions-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>update-bm.parent.pom.version</id>
+							<phase>none</phase>
+							<goals>
+								<goal>update-properties</goal>
+							</goals>
+							<inherited>false</inherited>
+
+							<configuration>
+								<properties>
+									<property>
+										<preferReactor>true</preferReactor>
+										<searchReactor>true</searchReactor>
+										<name>bm.parent.pom.version</name>
+										<dependencies>
+											<dependency>
+												<groupId>de.bmiag.maven</groupId>
+												<artifactId>bm-maven-parent</artifactId>
+											</dependency>
+										</dependencies>
+									</property>
+								</properties>
+								<includeProperties>bm.parent.pom.version</includeProperties>
+								<generateBackupPoms>false</generateBackupPoms>
+								<allowSnapshots>true</allowSnapshots>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
 		<plugins>
-			
-			<plugin>
-                <!-- Analyzes the depedendecies in the verify phase (by default) 
-                    of every child by default to check if a transitive dependency is used but 
-                    undeclared and is unused but declared. Every child project could skip this 
-                    check for the corresponding dependencies by using <ignoredUsedUndeclaredDependencies> 
-                    and <ignoredUnusedDeclaredDependencies> -->
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>analyze</id>
-                        <goals>
-                            <goal>analyze-only</goal>
-                        </goals>
-                        <configuration>
-                            <!-- By default fail the build if the analysis 
-                                is not succeed -->
-                            <failOnWarning>${maven.dependency.plugin.failOnWarning}</failOnWarning>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.15</version>
-                <configuration>
-                    <signature>
-                        <groupId>org.codehaus.mojo.signature</groupId>
-                        <artifactId>${org.codehaus.mojo.signature.artifactId}</artifactId>
-                        <version>1.0</version>
-                    </signature>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>ensure-java-class-library</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            
-            
-            <plugin>
-                <!-- <groupId>org.apache.maven.plugins</groupId> -->
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <!-- find the latest version at http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
-                <!-- version is managed in plugin management -->
-                <executions>
-                    <execution>
-                        <id>enforce-bytecode-version</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${enforcer.skip.enforce-bytecode-version}</skip>
-                            <rules>
-                                <enforceBytecodeVersion>
-                                    <maxJdkVersion>${maven.compiler.source}</maxJdkVersion>
-                                </enforceBytecodeVersion>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>extra-enforcer-rules</artifactId>
-                        <version>1.0-beta-6</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            
-        </plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemProperties>
+						<property>
+							<name>project.version</name>
+							<value>${project.version}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- Analyzes the dependencies in the verify phase (by default) of every 
+					child by default to check if a transitive dependency is used but undeclared 
+					and is unused but declared. Every child project could skip this check for 
+					the corresponding dependencies by using <ignoredUsedUndeclaredDependencies> 
+					and <ignoredUnusedDeclaredDependencies> -->
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>analyze</id>
+						<goals>
+							<goal>analyze-only</goal>
+						</goals>
+						<configuration>
+							<!-- By default fail the build if the analysis is not succeed -->
+							<failOnWarning>${maven.dependency.plugin.failOnWarning}</failOnWarning>
+							<ignoredUnusedDeclaredDependencies>
+								<!-- sentry-logback will be ignored by default during dependency 
+									check -->
+								<ignoredUnusedDeclaredDependency>io.sentry:sentry-logback</ignoredUnusedDeclaredDependency>
+							</ignoredUnusedDeclaredDependencies>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>animal-sniffer-maven-plugin</artifactId>
+				<configuration>
+					<signature>
+						<groupId>org.codehaus.mojo.signature</groupId>
+						<artifactId>${org.codehaus.mojo.signature.artifactId}</artifactId>
+						<version>1.0</version>
+					</signature>
+				</configuration>
+				<executions>
+					<execution>
+						<id>ensure-java-class-library</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- find the latest version at http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<!-- version is managed in plugin management -->
+				<executions>
+					<execution>
+						<id>enforce-bytecode-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<skip>${enforcer.skip.enforce-bytecode-version}</skip>
+							<rules>
+								<enforceBytecodeVersion>
+									<maxJdkVersion>${java.version}</maxJdkVersion>
+								</enforceBytecodeVersion>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>extra-enforcer-rules</artifactId>
+						<version>1.0-beta-6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+		</plugins>
 	</build>
 
-    <profiles>
-
-        <profile>
-            <id>doclint-java8-disable</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <properties>
-                <!-- DocLint is a new feature in Java 8, which is summarized 
-                    as: Provide a means to detect errors in Javadoc comments early in the development 
-                    cycle and in a way that is easily linked back to the source code. This means 
-                    unsufficent / uncomplete JavaDoc is mentioned as warning / error and will 
-                    fail the generation and whole maven build. To turn it of the argument -Xdoclint:none 
-                    must be set. -->
-                <javadoc.opts>${javadoc.doclint.arg}</javadoc.opts>
-            </properties>
-
-        </profile>
+	<profiles>
 
 		<profile>
-            <id>dependency-check</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.owasp</groupId>
-                        <artifactId>dependency-check-maven</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+			<id>doclint-java8-disable</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<properties>
+				<!-- DocLint is a new feature in Java 8, which is summarized as: Provide 
+					a means to detect errors in Javadoc comments early in the development cycle 
+					and in a way that is easily linked back to the source code. This means unsufficent 
+					/ uncomplete JavaDoc is mentioned as warning / error and will fail the generation 
+					and whole maven build. To turn it of the argument -Xdoclint:none must be 
+					set. -->
+				<javadoc.opts>${javadoc.doclint.arg}</javadoc.opts>
+			</properties>
 
-		<profile>
-            <id>make-executable-jar</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>${fully.qualified.MainClass}</mainClass>
-                                </manifest>
-                            </archive>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <finalName>${project.build.finalName}-executable</finalName>
-                            <appendAssemblyId>false</appendAssemblyId>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-my-jar-with-dependencies</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
 		</profile>
 
 		<profile>
-            <id>source</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+			<id>eclipse</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-eclipse-plugin</artifactId>
+						<version>2.10</version>
+						<configuration>
+							<additionalProjectnatures>
+								<projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
+							</additionalProjectnatures>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+
+		<profile>
+			<id>dependency-check</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>make-executable-jar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>${fully.qualified.MainClass}</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>${project.build.finalName}-executable</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+						</configuration>
+						<executions>
+							<execution>
+								<id>make-my-jar-with-dependencies</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+
+		<profile>
+			<id>javadoc</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<additionalparam>${javadoc.opts}</additionalparam>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<reporting>
+				<plugins>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>taglist-maven-plugin</artifactId>
+						<version>2.4</version>
+					</plugin>
+					<plugin>
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jdepend-maven-plugin</artifactId>
+						<version>2.0</version>
+					</plugin>
+
+				</plugins>
+			</reporting>
+		</profile>
+
+		<profile>
+			<id>source</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>codecoverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-prepare-agent</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>default-report</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>enforce-no-snapshots</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>enforce-no-snapshots</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<phase>verify</phase>
+								<configuration>
+									<rules>
+										<requireReleaseDeps>
+											<failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
+											<message>No Snapshots Allowed!</message>
+											<excludes>
+												<!-- Wir exkludieren unsere eigenen Artefakte, da diese durchaus 
+													Snapshots sein dürfen. -->
+												<exclude>${project.groupId}:*</exclude>
+											</excludes>
+										</requireReleaseDeps>
+									</rules>
+									<fail>true</fail>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
 	</profiles>
 
+	<!-- GitHub location -->
+	<issueManagement>
+		<system>GitHub</system>
+		<url>${rootUrl}/${repository.name}/issues</url>
+	</issueManagement>
 </project>
