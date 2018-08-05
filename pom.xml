@@ -13,10 +13,6 @@
 	<url>https://github.com/Tholian/maven-parent/</url>
 	<inceptionYear>2017</inceptionYear>
 
-	<prerequisites>
-		<maven>3.0.2</maven>
-	</prerequisites>
-
 	<properties>
 		<rootUrl>https://github.com/Tholian/</rootUrl>
 		<repository.name>${project.artifactId}</repository.name>
