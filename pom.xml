@@ -23,7 +23,7 @@
 
 		<!-- the lowest version will be 1.5, to enable legacy projects to include 
 			libs from tholian -->
-		<java.version>1.5</java.version>
+		<java.version>1.8</java.version>
 		<project.java.source.level>${java.version}</project.java.source.level>
 		<project.java.target.level>${java.version}</project.java.target.level>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
