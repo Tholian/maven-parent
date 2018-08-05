@@ -10,16 +10,21 @@
 
 	<name>Tholian Maven Parent</name>
 	<description>Base maven parent for Tholian projects on gitgub.</description>
-	<url>https://github.com/Tholian/maven-parent/</url>
+	<!--https://github.com/Tholian/maven-parent -->
+	<url>${rootUrl}/${project.artifactId}/</url>
 	<inceptionYear>2017</inceptionYear>
+	
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
 
 	<properties>
-		<rootUrl>https://github.com/Tholian/</rootUrl>
+		<rootUrl>https://github.com/Tholian</rootUrl>
 		<repository.name>${project.artifactId}</repository.name>
-
+		
 		<!-- the lowest version will be 1.5, to enable legacy projects to include 
 			libs from tholian -->
-		<java.version>1.8</java.version>
+		<java.version>1.5</java.version>
 		<project.java.source.level>${java.version}</project.java.source.level>
 		<project.java.target.level>${java.version}</project.java.target.level>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -41,9 +46,12 @@
 
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<default-upgrade-phase>validate</default-upgrade-phase>
+		
 		<!-- setting the doclint param for javadoc generation to none, 'group', 
 			all, see http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html -->
 		<javadoc.doclint.arg>-Xdoclint:all</javadoc.doclint.arg>
+		<!-- for legecy projects with poor javadoc it can be hard to correct all javadoc, so setting doclint to none is a temporary solution -->
+		<!--<javadoc.doclint.arg>-Xdoclint:none</javadoc.doclint.arg>-->
 		<documentation.dir>src/doc</documentation.dir>
 
 		<!-- source file directories to take into account while performing analysis -->
@@ -54,38 +62,41 @@
 
 		<!-- plugin versions used -->
 		<com.mycila_license-maven-plugin.version>3.0</com.mycila_license-maven-plugin.version>
-
 		<maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-		<maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
+		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-		<maven-ear-plugin.version>2.10.1</maven-ear-plugin.version>
-		<maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+		<maven-ear-plugin.version>3.0.1</maven-ear-plugin.version>
+		<maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
-		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+		<maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+		<maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.6</maven-site-plugin.version>
+		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
-		<maven-war-plugin.version>3.2.0</maven-war-plugin.version>
+		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+		<maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+		<animal-sniffer-maven-plugin.version>1.17</animal-sniffer-maven-plugin.version>
+		
+		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
 
 		<org.codehaus.mojo_build-helper-maven-plugin.version>3.0.0</org.codehaus.mojo_build-helper-maven-plugin.version>
 		<org.codehaus.mojo_clirr-maven-plugin.version>2.8</org.codehaus.mojo_clirr-maven-plugin.version>
-		<org.codehaus.mojo_sonar-maven-plugin.version>3.3.0.603</org.codehaus.mojo_sonar-maven-plugin.version>
+		<org.codehaus.mojo_sonar-maven-plugin.version>3.4.1.1168</org.codehaus.mojo_sonar-maven-plugin.version>
 		<org.codehaus.mojo_versions-maven-plugin.version>2.5</org.codehaus.mojo_versions-maven-plugin.version>
 
-		<org.jacoco_jacoco-maven-plugin.version>0.7.9</org.jacoco_jacoco-maven-plugin.version>
-		<org.owasp_dependency-check-maven.version>3.0.2</org.owasp_dependency-check-maven.version>
+		<org.jacoco_jacoco-maven-plugin.version>0.8.1</org.jacoco_jacoco-maven-plugin.version>
+		<org.owasp_dependency-check-maven.version>3.3.0</org.owasp_dependency-check-maven.version>
 
 		<!-- dependency versions used -->
-		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.0.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
+		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.1.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
 		<io.sentry.version>1.6.3</io.sentry.version>
-		<io.sentry_sentry.version>${io.sentry.version}</io.sentry_sentry.version>
-		<io.sentry_sentry-logback.version>${io.sentry.version}</io.sentry_sentry-logback.version>
+		<io.sentry_sentry.version>1.7.5</io.sentry_sentry.version>
+		<io.sentry_sentry-logback.version>1.7.5</io.sentry_sentry-logback.version>
 		<org.slf4j.version>1.7.25</org.slf4j.version>
 
 	</properties>
@@ -260,7 +271,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.8</version>
+					<version>${maven-antrun-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
@@ -278,7 +289,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>animal-sniffer-maven-plugin</artifactId>
-					<version>1.16</version>
+					<version>${animal-sniffer-maven-plugin.version}</version>
 				</plugin>
 
 				<plugin>
@@ -419,13 +430,13 @@
 							</rules>
 							<fail>true</fail>
 						</configuration>
-					</execution>
+					</execution>					
 				</executions>
 				<dependencies>
 					<dependency>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.0-beta-6</version>
+						<version>1.0-beta-9</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -436,7 +447,7 @@
 	<profiles>
 
 		<profile>
-			<id>doclint-java8-disable</id>
+			<id>doclint-java8</id>
 			<activation>
 				<jdk>[1.8,)</jdk>
 			</activation>
@@ -458,7 +469,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-eclipse-plugin</artifactId>
-						<version>2.10</version>
+						<version>${maven-eclipse-plugin.version}</version>
 						<configuration>
 							<additionalProjectnatures>
 								<projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
