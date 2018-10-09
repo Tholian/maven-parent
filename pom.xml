@@ -24,7 +24,7 @@
 		
 		<!-- the lowest version will be 1.5, to enable legacy projects to include 
 			libs from tholian -->
-		<java.version>1.5</java.version>
+		<java.version>1.8</java.version>
 		<project.java.source.level>${java.version}</project.java.source.level>
 		<project.java.target.level>${java.version}</project.java.target.level>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -33,7 +33,7 @@
 		<!-- This must hold the artifactId of the plugin to test java api against, 
 			to ensure that no newer API is accidentially called. -->
 		<!-- available artifactId can be found here http://search.maven.org/#search%7Cga%7C1%7Corg.codehaus.mojo.signature -->
-		<org.codehaus.mojo.signature.artifactId>java15</org.codehaus.mojo.signature.artifactId>
+		<org.codehaus.mojo.signature.artifactId>java18</org.codehaus.mojo.signature.artifactId>
 		<!-- if animal sniffer should be skipped completely -->
 		<animal.sniffer.skip>false</animal.sniffer.skip>
 
@@ -61,7 +61,6 @@
 
 
 		<!-- plugin versions used -->
-		<com.mycila_license-maven-plugin.version>3.0</com.mycila_license-maven-plugin.version>
 		<maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
 		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -87,16 +86,18 @@
 		<org.codehaus.mojo_build-helper-maven-plugin.version>3.0.0</org.codehaus.mojo_build-helper-maven-plugin.version>
 		<org.codehaus.mojo_clirr-maven-plugin.version>2.8</org.codehaus.mojo_clirr-maven-plugin.version>
 		<org.codehaus.mojo_sonar-maven-plugin.version>3.4.1.1168</org.codehaus.mojo_sonar-maven-plugin.version>
-		<org.codehaus.mojo_versions-maven-plugin.version>2.5</org.codehaus.mojo_versions-maven-plugin.version>
+		<org.codehaus.mojo_versions-maven-plugin.version>2.7</org.codehaus.mojo_versions-maven-plugin.version>
+		
+		<org.sonarsource.scanner.maven_sonar.maven.plugin.version>3.5.0.1254</org.sonarsource.scanner.maven_sonar.maven.plugin.version>
 
-		<org.jacoco_jacoco-maven-plugin.version>0.8.1</org.jacoco_jacoco-maven-plugin.version>
-		<org.owasp_dependency-check-maven.version>3.3.0</org.owasp_dependency-check-maven.version>
+		<org.jacoco_jacoco-maven-plugin.version>0.8.2</org.jacoco_jacoco-maven-plugin.version>
+		<org.owasp_dependency-check-maven.version>3.3.2</org.owasp_dependency-check-maven.version>
 
 		<!-- dependency versions used -->
-		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.1.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
-		<io.sentry.version>1.6.3</io.sentry.version>
-		<io.sentry_sentry.version>1.7.5</io.sentry_sentry.version>
-		<io.sentry_sentry-logback.version>1.7.5</io.sentry_sentry-logback.version>
+		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.2.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
+		
+		<io.sentry_sentry.version>1.7.10</io.sentry_sentry.version>
+		<io.sentry_sentry-logback.version>1.7.10</io.sentry_sentry-logback.version>
 		<org.slf4j.version>1.7.25</org.slf4j.version>
 
 	</properties>
@@ -193,9 +194,10 @@
 					</dependencies>
 				</plugin>
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>${org.codehaus.mojo_sonar-maven-plugin.version}</version>
+					  <groupId>org.sonarsource.scanner.maven</groupId>
+					  <artifactId>sonar-maven-plugin</artifactId>
+					  <!--FIXME: auslagern -->
+					  <version>${org.sonarsource.scanner.maven_sonar.maven.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -290,12 +292,6 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>animal-sniffer-maven-plugin</artifactId>
 					<version>${animal-sniffer-maven-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>com.mycila</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>${com.mycila_license-maven-plugin.version}</version>
 				</plugin>
 
 				<plugin>
