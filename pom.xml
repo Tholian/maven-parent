@@ -308,35 +308,6 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>${org.codehaus.mojo_versions-maven-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>update-bm.parent.pom.version</id>
-							<phase>none</phase>
-							<goals>
-								<goal>update-properties</goal>
-							</goals>
-							<inherited>false</inherited>
-
-							<configuration>
-								<properties>
-									<property>
-										<preferReactor>true</preferReactor>
-										<searchReactor>true</searchReactor>
-										<name>bm.parent.pom.version</name>
-										<dependencies>
-											<dependency>
-												<groupId>de.bmiag.maven</groupId>
-												<artifactId>bm-maven-parent</artifactId>
-											</dependency>
-										</dependencies>
-									</property>
-								</properties>
-								<includeProperties>bm.parent.pom.version</includeProperties>
-								<generateBackupPoms>false</generateBackupPoms>
-								<allowSnapshots>true</allowSnapshots>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 
 			</plugins>
