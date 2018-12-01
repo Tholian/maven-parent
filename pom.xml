@@ -42,7 +42,6 @@
 
 		<maven.dependency.plugin.failOnWarning>true</maven.dependency.plugin.failOnWarning>
 
-		<!-- TODO: use endorsed here ?? -->
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<default-upgrade-phase>validate</default-upgrade-phase>	
 		
@@ -56,39 +55,11 @@
 
 		<!-- dependency versions used -->
 		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.2.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
-		
-		
-		<io.sentry_sentry.version>1.7.15</io.sentry_sentry.version>
-		<io.sentry_sentry-logback.version>1.7.15</io.sentry_sentry-logback.version>
-		<org.slf4j.version>1.7.25</org.slf4j.version>
 
 	</properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.sentry</groupId>
-				<artifactId>sentry</artifactId>
-				<version>${io.sentry_sentry.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.sentry</groupId>
-				<artifactId>sentry-logback</artifactId>
-				<version>${io.sentry_sentry-logback.version}</version>
-			</dependency>
-
-			<!-- is packed inside io.sentry, but will be used normally as direct dependency 
-				and not just transitive -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${org.slf4j.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
+		<!-- base plugins used by tholian projects -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -299,11 +270,6 @@
 						<configuration>
 							<!-- By default fail the build if the analysis is not succeed -->
 							<failOnWarning>${maven.dependency.plugin.failOnWarning}</failOnWarning>
-							<ignoredUnusedDeclaredDependencies>
-								<!-- sentry-logback will be ignored by default during dependency 
-									check -->
-								<ignoredUnusedDeclaredDependency>io.sentry:sentry-logback</ignoredUnusedDeclaredDependency>
-							</ignoredUnusedDeclaredDependencies>
 						</configuration>
 					</execution>
 				</executions>
@@ -368,7 +334,7 @@
 					<dependency>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.0</version>
+						<version>1.1</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -478,7 +444,7 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
-									<additionalparam>${javadoc.opts}</additionalparam>
+									<doclint></doclint>
 								</configuration>
 							</execution>
 						</executions>
