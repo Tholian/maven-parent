@@ -6,10 +6,12 @@
 	<groupId>com.github.tholian</groupId>
 	<artifactId>maven-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
+	
 	<packaging>pom</packaging>
 
 	<name>Tholian Maven Parent</name>
 	<description>Base maven parent for Tholian projects on gitgub.</description>
+	
 	<!--https://github.com/Tholian/maven-parent -->
 	<url>${rootUrl}/${project.artifactId}/</url>
 	<inceptionYear>2017</inceptionYear>
@@ -18,8 +20,7 @@
 		<rootUrl>https://github.com/Tholian</rootUrl>
 		<repository.name>${project.artifactId}</repository.name>
 		
-		<!-- the lowest version will be 1.5, to enable legacy projects to include 
-			libs from tholian -->
+		<!-- default java version to use for java projects -->
 		<java.version>1.8</java.version>
 		<project.java.source.level>${java.version}</project.java.source.level>
 		<project.java.target.level>${java.version}</project.java.target.level>
@@ -29,6 +30,7 @@
 		<!-- This must hold the artifactId of the plugin to test java api against, 
 			to ensure that no newer API is accidentially called. -->
 		<!-- available artifactId can be found here http://search.maven.org/#search%7Cga%7C1%7Corg.codehaus.mojo.signature -->
+		<!-- must match the requirements of java.version property to check against correct version -->
 		<org.codehaus.mojo.signature.artifactId>java18</org.codehaus.mojo.signature.artifactId>
 		<!-- if animal sniffer should be skipped completely -->
 		<animal.sniffer.skip>false</animal.sniffer.skip>
@@ -40,54 +42,17 @@
 
 		<maven.dependency.plugin.failOnWarning>true</maven.dependency.plugin.failOnWarning>
 
+		<!-- TODO: use endorsed here ?? -->
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-		<default-upgrade-phase>validate</default-upgrade-phase>
+		<default-upgrade-phase>validate</default-upgrade-phase>	
 		
-		<!-- setting the doclint param for javadoc generation to none, 'group', 
-			all, see http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html -->
-		<javadoc.doclint.arg>-Xdoclint:all</javadoc.doclint.arg>
-		<!-- for legecy projects with poor javadoc it can be hard to correct all javadoc, so setting doclint to none is a temporary solution -->
-		<!--<javadoc.doclint.arg>-Xdoclint:none</javadoc.doclint.arg>-->
 		<documentation.dir>src/doc</documentation.dir>
 
+		<!-- TODO: check sonar usage right here, check correct plugin ! -->
 		<!-- source file directories to take into account while performing analysis -->
 		<sonar.sources>${project.build.sourceDirectory}</sonar.sources>
 
 		<enforcer.skip.enforce-bytecode-version>${enforcer.skip}</enforcer.skip.enforce-bytecode-version>
-
-
-		<!-- plugin versions used -->
-		<maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-		<maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
-		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-		<maven-ear-plugin.version>3.0.1</maven-ear-plugin.version>
-		<maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
-		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-		<maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
-		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-		<maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-		<maven-war-plugin.version>3.2.2</maven-war-plugin.version>
-		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
-		<animal-sniffer-maven-plugin.version>1.17</animal-sniffer-maven-plugin.version>
-		
-		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-
-		<org.codehaus.mojo_build-helper-maven-plugin.version>3.0.0</org.codehaus.mojo_build-helper-maven-plugin.version>
-		<org.codehaus.mojo_clirr-maven-plugin.version>2.8</org.codehaus.mojo_clirr-maven-plugin.version>
-		<org.codehaus.mojo_sonar-maven-plugin.version>3.4.1.1168</org.codehaus.mojo_sonar-maven-plugin.version>
-		<org.codehaus.mojo_versions-maven-plugin.version>2.7</org.codehaus.mojo_versions-maven-plugin.version>
-		
-		<org.sonarsource.scanner.maven_sonar.maven.plugin.version>3.5.0.1254</org.sonarsource.scanner.maven_sonar.maven.plugin.version>
-
-		<org.jacoco_jacoco-maven-plugin.version>0.8.2</org.jacoco_jacoco-maven-plugin.version>
-		<org.owasp_dependency-check-maven.version>3.3.2</org.owasp_dependency-check-maven.version>
 
 		<!-- dependency versions used -->
 		<org.apache.maven.wagon_wagon-webdav-jackrabbit.version>3.2.0</org.apache.maven.wagon_wagon-webdav-jackrabbit.version>
@@ -128,36 +93,34 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>${maven-install-plugin.version}</version>
+					<version>2.5.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>${maven-enforcer-plugin.version}</version>
+					<version>3.0.0-M2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>${maven-deploy-plugin.version}</version>
+					<version>2.8.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>${maven-project-info-reports-plugin.version}</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-					<configuration>
-						<additionalparam>${javadoc.opts}</additionalparam>
-					</configuration>
+					<version>3.0.1</version>
+					<!-- FIXME: javadoc options nutzen ! -->
 				</plugin>
 
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>${maven-source-plugin.version}</version>
+					<version>3.0.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>${maven-release-plugin.version}</version>
+					<version>2.5.3</version>
 					<configuration>
 						<tagNameFormat>@{project.version}</tagNameFormat>
 					</configuration>
@@ -165,11 +128,11 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${org.jacoco_jacoco-maven-plugin.version}</version>
+					<version>0.8.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
+					<version>3.8.0</version>
 					<configuration>
 						<source>${project.java.source.level}</source>
 						<target>${project.java.target.level}</target>
@@ -181,7 +144,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>${maven-site-plugin.version}</version>
+					<version>3.7.1</version>
 					<dependencies>
 						<dependency>
 							<groupId>org.apache.maven.wagon</groupId>
@@ -194,20 +157,20 @@
 					  <groupId>org.sonarsource.scanner.maven</groupId>
 					  <artifactId>sonar-maven-plugin</artifactId>
 					  <!--FIXME: auslagern -->
-					  <version>${org.sonarsource.scanner.maven_sonar.maven.plugin.version}</version>
+					  <version>3.5.0.1254</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${org.codehaus.mojo_build-helper-maven-plugin.version}</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin.version}</version>
+					<version>2.22.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>${maven-dependency-plugin.version}</version>
+					<version>3.1.1</version>
 					<!-- could be used to upgrade JAXB and JAXWS in Java 1.6 by overriding 
 						the phase: "<phase>${default-upgrade-phase}</phase>" -->
 					<executions>
@@ -254,47 +217,39 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven-jar-plugin.version}</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-ear-plugin</artifactId>
-					<!-- In Verbindung mit "skinnyWars" (https://maven.apache.org/plugins/maven-war-plugin/examples/skinny-wars.html) 
-						sollte unbedingt diese Version genommen werden, weil es einen Bug gibt: https://mail-archives.apache.org/mod_mbox/maven-users/201411.mbox/%3C54762BD3.7090405@gmx.de%3E 
-						Es werden nämlich SNAPSHOT-Artefakte doppelt ins EAR gelegt. Einmal ins EAR 
-						und einmal in das WAR (unter WEB-INF/lib), welches im EAR liegt... -->
-					<version>${maven-ear-plugin.version}</version>
+					<version>3.0.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>${maven-assembly-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>${maven-antrun-plugin.version}</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>${maven-war-plugin.version}</version>
+					<version>3.2.2</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>${maven-clean-plugin.version}</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven-resources-plugin.version}</version>
+					<version>3.1.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>animal-sniffer-maven-plugin</artifactId>
-					<version>${animal-sniffer-maven-plugin.version}</version>
+					<version>1.17</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.owasp</groupId>
 					<artifactId>dependency-check-maven</artifactId>
-					<version>${org.owasp_dependency-check-maven.version}</version>
+					<version>3.3.2</version>
 					<executions>
 						<execution>
 							<goals>
@@ -307,7 +262,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>${org.codehaus.mojo_versions-maven-plugin.version}</version>
+					<version>2.7</version>
 				</plugin>
 
 			</plugins>
@@ -446,7 +401,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-eclipse-plugin</artifactId>
-						<version>${maven-eclipse-plugin.version}</version>
+						<version>2.10</version>
 						<configuration>
 							<additionalProjectnatures>
 								<projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
